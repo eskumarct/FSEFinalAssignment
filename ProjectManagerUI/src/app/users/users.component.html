@@ -1,0 +1,59 @@
+<div class="container">
+  <form #addUserForm="ngForm">
+    <h6 id="userMsg"></h6>
+    <div class="form-group">
+      <label for="txtFName">First Name:</label>
+      <input type="text" maxlength="30" class="form-control" [(ngModel)]="FirstName" id="txtFName" name="txtFName"
+        required #txtFName="ngModel">
+      <div [hidden]="!firstNameError" class="alertDanger">
+        First Name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="txtLName">Last Name:</label>
+      <input type="text" maxlength="30" class="form-control" [(ngModel)]="LastName" id="txtLName" name="txtLName"
+        required #txtLName="ngModel">
+      <div [hidden]="!lastNameError" class="alertDanger">
+        Last Name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="txtEmpId">Employee ID:</label>
+      <input type="text" maxlength="6" (keypress)="numberOnly($event)" class="form-control" [(ngModel)]="EmployeeID" id="txtEmpId"
+        name="txtEmpId" required #txtEmpId="ngModel">
+      <div [hidden]="!employeeIDError" class="alertDanger">
+        EmployeeID is required
+      </div>
+    </div>
+    <div style="padding-left: 30%;">
+      <button type="submit" class="btn btn-default" style="width: 20%;" (click)="AddUpdateUser();">{{AddButtonText}}</button>
+      <button class="btn btn-default" (click)="ResetData();" style="margin-left: 5px; width: 15%;">{{ResetButtonText}}</button>
+    </div>
+  </form>
+  <hr style="border-top: 1px solid #333;" />
+  <div>
+    <input type="text" class="form-control" (input)="filterItem()" [(ngModel)]="searchText" style="display: inline; width: 43%;"
+      placeholder="Search...">
+    <b style="display: inline; margin-left: 2%; width: 10%;">Sort:</b>
+    <button class="form-control overFlow" (click)="sortingUser('FName')" style="display: inline;margin-left: 2%; width: 15%;">First
+      Name</button>
+    <button class="form-control overFlow" (click)="sortingUser('LName')" style="display: inline;margin-left: 2%; width: 15%;">Last
+      Name</button>
+    <button class="form-control overFlow" (click)="sortingUser('EId')" style="display: inline;margin-left: 2%; width: 15%;">Employee
+      Id</button>
+  </div>
+
+  <div *ngFor="let user of filteredList">
+    <hr style="border-top: dotted 1px;" />
+    <input type="text" class="form-control" style="width: 25%; display: inline; margin-left: 1%;" disabled value={{user.FirstName}}>
+    <input type="text" class="form-control" style="width: 25%; display: inline; margin-left: 1%;" disabled value={{user.LastName}}>
+    <input type="text" class="form-control" style="width: 25%; display: inline; margin-left: 1%;" disabled value={{user.EmployeeID}}>
+
+    <button class="btn btn-default" (click)="EditUser(user)" style="width: 10%; display: inline; margin-left: 1%;">Edit</button>
+    <button class="btn btn-default" (click)="DeleteUser(user)" style="width: 10%; display: inline; margin-left: 1%;">Delete</button>
+  </div>
+
+  <div *ngIf="userListCount==0">
+    <label>There are no users</label>
+  </div>
+</div>

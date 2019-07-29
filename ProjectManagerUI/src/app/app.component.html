@@ -1,0 +1,19 @@
+<div class="container BottomMargin">
+  <h1>Project Manager</h1>
+  <br>
+  <ul id="grouplist">
+    <li class="inlineClass" [routerLink]="'/projects'" [ngClass]="{'active': selectedItem == 'addProjects'}" (click)="listClick('addProjects')">
+      Add Project
+    </li>
+    <li class="inlineClass" [routerLink]="'/addTasks'" [ngClass]="{'active': selectedItem == 'addTasks'}" (click)="listClick('addTasks')">
+      Add Task
+    </li>
+    <li class="inlineClass" [routerLink]="'/users'" [ngClass]="{'active': selectedItem == 'addUsers'}" (click)="listClick('addUsers')">
+      Add User
+    </li>
+    <li class="inlineClass" [routerLink]="'/viewTasks'" [ngClass]="{'active': selectedItem == 'viewTasks'}" (click)="listClick('viewTasks')">
+      View Task
+    </li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

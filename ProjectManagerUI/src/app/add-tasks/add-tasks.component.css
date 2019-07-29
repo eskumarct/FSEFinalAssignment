@@ -1,0 +1,57 @@
+.labelClass {
+    width: 15%;
+  }
+  
+  .textClass {
+    width: 40%;
+  }
+  
+  .form-group {
+    display: flex;
+  }
+  
+  .BottomMargin {
+    margin-bottom: 1%;
+  }
+  
+  .alertDanger {
+    color: #a94442;
+    padding-left: 15px;
+  }
+  
+  .slider {
+    margin-top: 8px;
+    -webkit-appearance: none;
+    width: 51%;
+    height: 5px;
+    border-radius: 5px;
+    margin-right: 1%;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: gray;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: gray;
+    cursor: pointer;
+  }
+  

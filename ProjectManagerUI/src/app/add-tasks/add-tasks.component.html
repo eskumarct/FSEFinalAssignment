@@ -1,0 +1,61 @@
+<div class="container">
+  <form #addTaskForm="ngForm">
+    <h6 id="userMsg"></h6>
+    <div class="form-group">
+      <label class="labelClass" for="txtProject">Project:</label>
+      <input type="text" disabled class="form-control textClass" [(ngModel)]="Project" id="txtProject" name="txtProject"
+        required #txtProject="ngModel">
+      <button id="projDialogButton" class="form-control" style="margin-left: 1%; width: 10%;" (click)="openProjectDialog()">Search</button>
+      <div [hidden]="!projectError" class="alertDanger">
+        Project is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="labelClass" for="txtTask">Task:</label>
+      <input type="text" style="width: 51%;" class="form-control textClass" [(ngModel)]="Task" id="txtTask" name="txtTask"
+        required #txtTask="ngModel">
+      <div [hidden]="!taskError" class="alertDanger">
+        Task is required
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" [disabled]="TaskID" style="margin-right: 1%;margin-left: 15%; " id="chkPTask" name="chkPTask"
+        (change)="TaskCheckBoxChange()" [(ngModel)]="IsParentTask"> Parent Task
+    </div>
+    <div class="form-group">
+      <label class="labelClass" for="txtPriority">Priority:</label>
+      <input type="range" [disabled]="IsParentTask" class="slider" id="txtPriority" name="txtPriority" [(ngModel)]="Priority"
+        required min="0" max="30" step="1" #txtPriority="ngModel"> {{Priority}}
+    </div>
+    <div class="form-group">
+      <label class="labelClass" for="txtPTask">Parent Task:</label>
+      <input type="text" disabled class="form-control textClass" [(ngModel)]="ParentTask" id="txtPTask" name="txtPTask"
+        required #txtPTask="ngModel">
+      <button id="parentTaskDialogButton" class="form-control" style="margin-left: 1%; width: 10%;" (click)="openParentTaskDialog()">Search</button>
+    </div>
+    <div class="form-group">
+      <label for="txtSDate">Start Date:</label>
+      <input type="date" [disabled]="IsParentTask" id="txtSDate" name="txtSDate" style="margin-left: 1%; width: 23%;"
+        [min]="startMinDate" [(ngModel)]="StartDate" required class="form-control">
+      <label for="txtEDate" style="margin-left: 3%;">End Date:</label>
+      <input type="date" [disabled]="IsParentTask" id="txtEDate" name="txtEDate" style="margin-left: 1%; width: 23%;"
+        [min]="endMinDate" [(ngModel)]="EndDate" required class="form-control">
+      <div [hidden]="!startEndDateError" class="alertDanger">
+        Start and End Date is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="labelClass" for="txtUser">User:</label>
+      <input type="text" disabled class="form-control textClass" [(ngModel)]="UserName" disabled id="txtUser" name="txtUser"
+        required #txtUser="ngModel">
+      <button id="openUserDialogButton" class="form-control" style="margin-left: 1%; width: 10%;" (click)="openUserDialog()">Search</button>
+      <div [hidden]="!userError" class="alertDanger">
+        User is required
+      </div>
+    </div>
+    <div style="padding-left: 50%;">
+      <button type="submit" class="btn btn-default" (click)="AddUpdateTask();">{{addButtonText}}</button>
+      <button class="btn btn-default" (click)="ResetTask();" style="margin-left: 5px;">Reset</button>
+    </div>
+  </form>
+</div>

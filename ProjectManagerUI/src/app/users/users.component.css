@@ -1,0 +1,20 @@
+label {
+  width: 15%;
+}
+
+input {
+  width: 40%;
+}
+
+.form-group {
+  display: flex;
+}
+
+.BottomMargin {
+  margin-bottom: 1%;
+}
+
+.alertDanger {
+  color: #a94442;
+  padding-left: 15px;
+}

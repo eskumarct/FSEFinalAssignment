@@ -1,0 +1,102 @@
+<div class="container">
+  <form #addProjectForm="ngForm">
+    <h6 id="userMsg"></h6>
+    <div class="form-group">
+      <label class="labelClass" for="txtProject">Project:</label>
+      <input type="text" style="width: 53%;" maxlength="100" class="form-control textClass" [(ngModel)]="Project" id="txtProject"
+        name="txtProject" required #txtProject="ngModel">
+      <div [hidden]="!projectNameError" class="alertDanger">
+        Project is required
+      </div>
+    </div>
+    <div class="form-group" style="margin-left: 15%">
+      <input type="checkbox" style="margin-right: 1%;" id="chkDate" name="chkDate" (change)="DateCheckBoxChange()"
+        [(ngModel)]="StartEndDateSelected" #chkDate="ngModel">
+      Set Start and End Date
+      <input type="date" [disabled]="!StartEndDateSelected" id="txtSDate" name="txtSDate" style="margin-left: 1%; width: 20%;"
+        [min]="startMinDate" [(ngModel)]="StartDate" required class="form-control" #txtSDate="ngModel">
+      <input type="date" [disabled]="!StartEndDateSelected" id="txtEDate" name="txtEDate" style="margin-left: 1%; width: 20%;"
+        [min]="endMinDate" [(ngModel)]="EndDate" required class="form-control" #txtEDate="ngModel">
+      <div [hidden]="!StartEndDateError" class="alertDanger">
+        Start and End Date is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="labelClass" for="txtPriority">Priority:</label>
+      <input type="range" class="slider" id="txtPriority" name="txtPriority" [(ngModel)]="Priority" required min="0"
+        max="30" step="1" #txtPriority="ngModel"> {{Priority}}
+    </div>
+    <div class="form-group">
+      <label class="labelClass" for="txtManager">Manager:</label>
+      <input type="text" [hidden]="ManagerID" style="width: 42%;" class="form-control textClass" [(ngModel)]="ManagerName"
+        disabled id="txtManager" name="txtManager" required #txtManager="ngModel">
+      <button id="openModalButton" class="form-control" style="margin-left: 1%; width: 10%;" (click)="openDialog()">Search</button>
+      <div [hidden]="!managerError" class="alertDanger">
+        Manager is required
+      </div>
+    </div>
+    <div style="padding-left: 50%;">
+      <button type="submit" class="btn btn-default" (click)="AddUpdateProject();" style="width: 20%;">{{AddButtonText}}</button>
+      <button class="btn btn-default" (click)="ResetData();" style="margin-left: 5px; width: 15%;">{{ResetButtonText}}</button>
+    </div>
+  </form>
+  <hr style="border-top: 1px solid #333;" />
+  <div>
+    <input type="text" class="form-control" (input)="filterItem()" [(ngModel)]="searchText" style="display: inline;"
+      placeholder="Search...">
+    <div style="margin-top: 2%;">
+      <b style="display: inline; width: 10%;">Sort:</b>
+      <button class="form-control overFlow" (click)="sortingProject('SDate')" style="display: inline;margin-left: 2%; width: 15%;">Start
+        Date</button>
+      <button class="form-control overFlow" (click)="sortingProject('EDate')" style="display: inline;margin-left: 2%; width: 15%;">End
+        Date</button>
+      <button class="form-control overFlow" (click)="sortingProject('Priority')" style="display: inline;margin-left: 2%; width: 15%;">Priority</button>
+      <button class="form-control overFlow" (click)="sortingProject('Completed')" style="display: inline;margin-left: 2%; width: 15%;">Completed</button>
+    </div>
+  </div>
+
+  <div *ngFor="let proj of filteredList">
+    <hr style="border-top: dotted 1px;" />
+    <div class="row">
+      <div class="col-xs-8">
+        <div class="row" style=" padding-left: 15px;">
+          <label style="display: inline;">Project: </label>
+          <input type="text" style="display: inline; width: 80%;" class="form-control" disabled value={{proj.Project}}>
+        </div>
+        <div class="row" style=" margin-top: 2%;">
+          <div class="col-xs-6">
+            <label style="display: inline;">No of Tasks: </label>
+            <span style="display: inline; width: 60%;">{{proj.NoofTasks}}</span>
+          </div>
+          <div class="col-xs-6">
+            <label style="display: inline;">Completed: </label>
+            <span style="display: inline; width: 60%;">{{proj.NoofCompletedTasks}}</span>
+          </div>
+        </div>
+        <div class="row" style=" margin-top: 2%;">
+          <div class="col-xs-6">
+            <label style="display: inline;">Start Date: </label>
+            <span style="display: inline; width: 60%;">{{proj.StartDate | date: 'dd-MM-yyyy'}}</span>
+          </div>
+          <div class="col-xs-6">
+            <label style="display: inline;">End Date: </label>
+            <span style="display: inline; width: 60%;">{{proj.EndDate | date: 'dd-MM-yyyy'}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-2" style="margin-top: 7%;">
+        <label style="display: inline;">Priority: </label>
+        <span style="display: inline; width: 60%;">{{proj.Priority}}</span>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-default" style="width: 100%; height: 34px; margin-bottom: 10%;" (click)="EditProject(proj)">Update</button>
+        <button class="btn btn-default" style="width: 100%; height: 34px;margin-bottom: 10%;" (click)="SuspendProject(proj.ProjectID)">Suspend</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="projListCount==0">
+    <hr style="border-top: dotted 1px;" />
+    <b>There are no projects</b>
+  </div>
+</div>

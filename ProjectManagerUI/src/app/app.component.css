@@ -1,0 +1,14 @@
+.BottomMargin {
+    margin-bottom: 1%;
+}
+
+.inlineClass{
+    display: inline;
+    margin-left: -3%;
+    margin-right: 4%;
+    cursor: pointer;
+}
+
+.active{
+    color:goldenrod;
+}
